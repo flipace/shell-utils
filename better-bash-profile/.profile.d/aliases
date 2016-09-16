@@ -1,2 +1,2 @@
-alias init-ssh='sh ~/utils/ssh'
+alias init-ssh='sh ~/.utils/ssh'
 
