@@ -1,4 +1,22 @@
-export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+function __gitBranch {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# shorten a path in $1 to max of $2 characters, prepending a "..."
+function __shortpath {
+    if [[ ${#1} -gt $2 ]]; then
+        len=$2+3
+        echo "..."${1: -$len}
+    else
+        echo $1
+    fi
+}
+
+# produces a command line like this:
+# username@...ata/some-folder/another-sub_folderthing (develop)
+
+export PS1='\[\033[0;35m\]\h\[\033[0;33m\]@$(__shortpath "\w" 45)\[\033[m\]$(__gitBranch)\n$ '
+
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh'
